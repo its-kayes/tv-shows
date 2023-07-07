@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.showRoutes = void 0;
+const express_1 = require("express");
+const show_controller_1 = require("./show.controller");
+const isVerified_1 = require("../../middlewares/isVerified");
+const user_interface_1 = require("../users/user.interface");
+const router = (0, express_1.Router)();
+exports.showRoutes = router;
+router.get("/get-show", show_controller_1.showControllers.getShow);
+router.get("/show-by-title", show_controller_1.showControllers.getShowByTitle);
+router.post("/create-show", (0, isVerified_1.isVerified)(user_interface_1.Roles.ADMIN), show_controller_1.showControllers.createShow);
