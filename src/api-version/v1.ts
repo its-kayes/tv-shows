@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { userRoutes } from "../modules/users/user.routes";
 
 const router: Router = Router();
 
@@ -8,5 +9,7 @@ router.get('/', (req, res) => {
     });
     }
 );
+
+router.use('/users',userRoutes);
 
 export { router as v1 }
