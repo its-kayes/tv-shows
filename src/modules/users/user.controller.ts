@@ -8,7 +8,7 @@ const userRegister = catchAsync(async (req: Request, res: Response, next: NextFu
     const { name, email, password } = req.body;
 
     if(!name || !email || !password) {
-        next(new AppError('Please provide name, email and password', 400));
+        return next(new AppError('Please provide name, email and password', 400));
         
     }
 
@@ -24,6 +24,28 @@ const userRegister = catchAsync(async (req: Request, res: Response, next: NextFu
 
 });
 
+const userLogin = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const { email, password } = req.body;
+
+    if(!email || !password) {
+        next(new AppError('Please provide email and password', 400));
+        
+    }
+
+    const user = await userService.userVerify(email, password);
+
+    if(!user) {
+        return next(new AppError('Invalid email or password', 401));
+    }
+
+    res.status(200).json({
+        success: true,
+        message: 'User logged in successfully',
+        data: user
+    });
+})
+
 export const userController = {
-    userRegister
+    userRegister,
+    userLogin
 };
