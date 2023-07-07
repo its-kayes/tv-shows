@@ -7,7 +7,7 @@ import { JWT_ACCESS_TOKEN_EXPIRES_IN, JWT_REFRESH_TOKEN_EXPIRES_IN, NODE_ENV } f
 import { jwtHelpers } from "../../helpers/jwtHelpers";
 
 const userRegister = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
 
     if (!name || !email || !password) {
         return next(new AppError('Please provide name, email and password', 400));
@@ -16,7 +16,7 @@ const userRegister = catchAsync(async (req: Request, res: Response, next: NextFu
 
     const hashPassword = await bcrypt.hash(password, 10);
 
-    const user = await userService.userRegister({ name, email, password: hashPassword });
+    const user = await userService.userRegister({ name, email, password: hashPassword, role });
 
     res.status(201).json({
         success: true,
