@@ -1,10 +1,12 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import catchAsync from "../../util/catchAsync";
 import { Show } from "./show.model";
 import { ShowQueryParams } from "./show.interface";
 import { SortOrder } from "mongoose";
 import { ShowService } from "./show.service";
+import AppError from "../../util/AppError";
 
+// Create a show [Only for admin]
 const createShow = catchAsync(async (req: Request, res: Response) => {
     const show = await Show.create(req.body);
 
@@ -14,6 +16,8 @@ const createShow = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+
+// Get all shows with pagination and sorting
 const getShow = catchAsync(async (req: Request, res: Response) => {
 
     const {
@@ -42,7 +46,24 @@ const getShow = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+// Get show by title
+const getShowByTitle = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const { title }: { title?: string } = req.query;
+
+    if(!title) {
+        next(new AppError("Please provide a title", 400));
+    }
+
+    const show  = await Show.findOne({ title });
+
+    res.status(200).json({
+        status: "success",
+        show
+    });
+});
+
 export const showControllers = {
     createShow,
-    getShow
+    getShow,
+    getShowByTitle
 }
