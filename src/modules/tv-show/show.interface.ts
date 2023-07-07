@@ -14,4 +14,13 @@ export interface IShow {
     updatedAt?: Date
 }
 
+
+export type ShowQueryParams = {
+    limit?: string;
+    page?: string;
+    sortBy?: string;
+    sortOrder?: string;
+  };
+  
+
 export type ShowModel = Model<IShow, Record<string, unknown>>;

@@ -5,6 +5,7 @@ import { Roles } from "../users/user.interface";
 
 const router: Router = Router();
 
-router.post("/create-show", isVerified(Roles.ADMIN),showControllers.createShow);
+router.post("/create-show", isVerified(Roles.ADMIN), showControllers.createShow);
+router.get("/get-show", showControllers.getShow);
 
-export { router as showRoutes}
+export { router as showRoutes }
