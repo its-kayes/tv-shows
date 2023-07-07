@@ -17,6 +17,12 @@ const userSchema = new Schema<IUser>({
         type: String,
         required: [true, 'Password is required !!'],
         minlength: [3, 'Password must be greater than 3 characters !'],
+    },
+    role: {
+        type: String,
+        enum: ['user', 'admin'],
+        default: 'user',
+        required: [true, 'Role is required !'],
     }
 }, {timestamps: true});
 

@@ -1,16 +1,16 @@
 import dotenv from 'dotenv';
+import { Secret } from 'jsonwebtoken';
 
 type SiteEnvTypes = {
   PORT: number;
   MONGO_URI: string;
-  JWT_SECRET: string;
+  JWT_SECRET: Secret;
   JWT_EXPIRES_IN: string;
-  SMTP_PASS: string;
-  SMTP_USER: string;
-  SMTP_PORT: number;
-  SMTP_HOST: string;
   FRONTEND_BASE_URL: string;
   NODE_ENV: string;
+  HASH_SALT: number;
+  JWT_ACCESS_TOKEN_EXPIRES_IN: string;
+  JWT_REFRESH_TOKEN_EXPIRES_IN: string;
 };
 
 dotenv.config();
@@ -20,22 +20,20 @@ const {
   MONGO_URI,
   JWT_SECRET,
   JWT_EXPIRES_IN,
-  SMTP_HOST,
-  SMTP_PORT,
-  SMTP_USER,
-  SMTP_PASS,
   FRONTEND_BASE_URL,
-  NODE_ENV
+  NODE_ENV,
+  HASH_SALT,
+  JWT_ACCESS_TOKEN_EXPIRES_IN,
+  JWT_REFRESH_TOKEN_EXPIRES_IN
 } = process.env as unknown as SiteEnvTypes;
 export {
   FRONTEND_BASE_URL,
+  HASH_SALT,
+  JWT_ACCESS_TOKEN_EXPIRES_IN,
   JWT_EXPIRES_IN,
+  JWT_REFRESH_TOKEN_EXPIRES_IN,
   JWT_SECRET,
   MONGO_URI,
   NODE_ENV,
   PORT,
-  SMTP_HOST,
-  SMTP_PASS,
-  SMTP_PORT,
-  SMTP_USER
 };
